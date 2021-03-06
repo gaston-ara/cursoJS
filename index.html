@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="js1.js">  </script>
+    <title>Tienda online</title>
+</head>
+
+<body class="bg-dark">
+    <header>
+
+
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+                aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand text-white" href="index.html">GA-Sports</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#shop">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contacto" tabindex="-1" aria-disabled="true">Contacto</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0 m-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                </form>
+                <a type="button" class="nav-link text-white" data-toggle="modal" data-target="#registroModal">
+                    Registrate
+                </a>
+                <a type="button" class="nav-link text-white" data-toggle="modal" data-target="#sesionModal">
+                    Inicia sesión
+                </a>
+                <a class="nav-link text-white" href="#" tabindex="-1" aria-disabled="true">Carrito</a>
+            </div>
+        </nav>
+
+
+        <!-- Modal Iniciar sesion -->
+        <div class="modal fade" id="sesionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Inicia sesión</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña</label>
+                                <input type="password" class="form-control" id="contraseña">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Ingresar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Crear Cuenta -->
+        <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Registrate</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" class="form-control" id="apellido">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group">
+                                <label for="contraseña">Contraseña</label>
+                                <input type="password" class="form-control" id="contraseña">
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Crear Cuenta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Portada -->
+    <div class="portada">
+        <div class="texto-portada">
+            <h2 class="text-white titulo-portada">PROMO DESCUENTOS</h2>
+            <p class="text-white p-portada">Ingresá el código de tu cupón y obtené descuentos del 30%</p>
+        </div>
+    </div>
+    <main>
+        <!-- Productos -->
+        <section class="bg-warning p-5">
+            <div class="container">
+                <h1 class="text-center mb-5" id="shop">Productos</h1>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/buzo.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Buzo</h5>
+                                <p class="card-text">$7599</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/bolso.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Bolso</h5>
+                                <p class="card-text">$6299</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/remera.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Remera</h5>
+                                <p class="card-text">$2159</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/pantalon.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Pantalón</h5>
+                                <p class="card-text">$6999</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/short.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Short</h5>
+                                <p class="card-text">$5999</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="image/zapatillas.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Zapatillas</h5>
+                                <p class="card-text">$19999</p>
+                                <a href="#" class="btn btn-primary">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section>
+            <h2 class="text-white d-flex justify-content-center mt-5" id="contacto">Contacto</h2>
+            <div class="w-50 mt-4 m-auto">
+                <form class="form-group" action="" id="form1">
+                    <label class="text-white" for="nombre">Nombre</label>
+                    <input class="form-control" type="text" name="nombre" id="nombre"><br>
+                    <label class="text-white" for="apellido">Apellido</label>
+                    <input class="form-control" type="text" name="apellido" id="apellido"><br>
+                    <label class="text-white" for="email">Email</label>
+                    <input class="form-control" type="email" name="email" id="email"><br>
+                    <label class="text-white" for="mensaje">Escriba su mensaje</label>
+                    <textarea class="form-control" name="mensaje" id="" cols="30" rows="5"></textarea>
+                    <button type="submit" class="btn btn-light mt-3">Enviar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p class="text-white mt-5">Gastón Aragón - 2021</p>
+    </footer>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

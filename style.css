@@ -1,0 +1,22 @@
+html{
+    box-sizing: border-box;
+}
+
+.portada{
+    background-image: url(image/portada.jpg);
+    height: 100vh;
+}
+.texto-portada{
+    display: block;
+    position: relative;
+    top: 100px;
+    
+}
+.titulo-portada{
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+.p-portada{
+    font-size: 1.5rem;
+}
+
