@@ -26,3 +26,22 @@ if (pedirCupon == articulo_1.cupon) {
 } else if (pedirCupon == articulo_3.cupon) {
     alert("Podes comprar el pantalon a $" + articulo_3.getDescuento().toFixed());
 }
+
+// Arrays
+
+class Compras{
+    contructor(numProductos){
+        this.numProductos = numProductos;
+        this.carro= [];
+    }
+    alCarrito = function(producto){
+        this.carro.push(producto);
+    }
+        
+}
+
+// var resultado_1 = articulo_1.split(', ');
+
+// console.log(resultado_1);
+articulo_1.toString();
+console.log(typeof articulo_1);
