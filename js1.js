@@ -6,11 +6,13 @@ class Articulo{
         this.nombre = nombre;
         this.precio = precio;
         this.cupon = cupon;
+        this.menorMayor = [];
     }
 
     getDescuento = function(){
         return this.precio * 0.7;
     }
+   
 }
 
 var articulo_1 = new Articulo("Zapatillas", 19999, "cuponzapatillas");
@@ -27,21 +29,25 @@ if (pedirCupon == articulo_1.cupon) {
     alert("Podes comprar el pantalon a $" + articulo_3.getDescuento().toFixed());
 }
 
-// Arrays
 
-class Compras{
-    contructor(numProductos){
-        this.numProductos = numProductos;
-        this.carro= [];
-    }
-    alCarrito = function(producto){
-        this.carro.push(producto);
-    }
-        
-}
+// Arrays Email de registro ToLowerCase.
 
-// var resultado_1 = articulo_1.split(', ');
+var usuario1 = ["Nicolas", "Rodriguez", "NicoRodriguez@gmail.com", "123456"]
+console.log(usuario1[2].toLowerCase());
 
-// console.log(resultado_1);
-articulo_1.toString();
-console.log(typeof articulo_1);
+
+// Arrays orden menor a mayor
+
+var ordenPrecios = [7599, 6299, 2159, 6999, 5999, 19999]
+
+     ordenPrecios.sort((a, b) => {
+         if (a > b) {
+             return 1;
+         }
+         if (a < b) {
+             return -1;
+         }
+         return 0;
+     });
+
+     console.log(ordenPrecios);
