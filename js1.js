@@ -1,18 +1,18 @@
 pedirCupon = prompt("Si tiene un cupón ingrese su código y obtenga un descuento");
 
-class Articulo{
+class Articulo {
 
-    constructor(nombre, precio, cupon){
+    constructor(nombre, precio, cupon) {
         this.nombre = nombre;
         this.precio = precio;
         this.cupon = cupon;
         this.menorMayor = [];
     }
 
-    getDescuento = function(){
+    getDescuento = function () {
         return this.precio * 0.7;
     }
-   
+
 }
 
 var articulo_1 = new Articulo("Zapatillas", 19999, "cuponzapatillas");
@@ -40,14 +40,14 @@ console.log(usuario1[2].toLowerCase());
 
 var ordenPrecios = [7599, 6299, 2159, 6999, 5999, 19999]
 
-     ordenPrecios.sort((a, b) => {
-         if (a > b) {
-             return 1;
-         }
-         if (a < b) {
-             return -1;
-         }
-         return 0;
-     });
+ordenPrecios.sort((a, b) => {
+    if (a > b) {
+        return 1;
+    }
+    if (a < b) {
+        return -1;
+    }
+    return 0;
+});
 
-     console.log(ordenPrecios);
+console.log(ordenPrecios);
