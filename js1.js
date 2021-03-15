@@ -51,3 +51,53 @@ ordenPrecios.sort((a, b) => {
 });
 
 console.log(ordenPrecios);
+
+
+// Inicio sesion
+
+var cuentas = []
+
+function getLogin(){
+    var email = document.getElementById("mail").value
+    var contrasena = document.getElementById("password").value
+
+    for(i = 0; i < cuentas.length; i++){
+        if(email == cuentas[i].email && contrasena == cuentas[i].contrasena){
+            document.getElementById("inicioSesion").innerHTML= cuentas[i].nombre + " " + cuentas[i].apellido
+            console.log("Sesión iniciada")
+            $('#sesionModal').modal('hide');
+            return
+        }
+    }
+    document.getElementById("errorInicio").innerHTML="Contraseña o email incorrecto"
+}
+
+// Registro de usuario
+
+function nuevoUsuario(){
+    var regNombre = document.getElementById("nombre").value
+    var regApellido = document.getElementById("apellido").value
+    var regEmail = document.getElementById("email").value
+    var regContrasena = document.getElementById("contraseña").value
+    var nuevaCuenta = {
+        nombre: regNombre,
+        apellido: regApellido,
+        email: regEmail,
+        contrasena: regContrasena
+    }
+
+    for(i = 0; i < cuentas.length; i++){
+        if(regEmail == cuentas[i].email){
+            document.getElementById("emailError").innerHTML="Este email ya ha sido registrado"
+            return
+        } else if (regContrasena.length < 8) {
+            document.getElementById("validacion").innerHTML="Ingrese un mínimo de 8 caracteres"
+            return
+        }
+    }
+    cuentas.push(nuevaCuenta)
+    console.log("Nueva cuenta creada")
+    console.log(cuentas)
+    $('#registroModal').modal('hide');
+
+}
