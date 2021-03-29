@@ -14,7 +14,7 @@ function getLogin() {
             return
         }
     }
-    document.getElementById("errorInicio").innerHTML = "Contraseña o email incorrecto"
+    $("#errorInicio").append("Contraseña o email incorrecto").css("color", "red");
 }
 
 // Registro de usuario
@@ -76,8 +76,21 @@ class Carrito{
         <img src="${producto.imagen}" width=100>
         </td>
         <td class="px-5">${producto.titulo}</td>
-        <td class="px-5">${producto.precio}</td>`;
+        <td class="px-5">${producto.precio}</td>
+        <td><a href="#" class="borrar-prod" data-id="${producto.id}">Eliminar</a></td>`
+        ;
         listaCarro.appendChild(linea);
+    }
+
+    borrarProducto(e){
+        e.preventDefault();
+        let producto, productoId;
+        if(e.target.classlist.contains('borrar-prod')){
+            e.target.parentElement.parentElement.remove();
+            producto = e.target.parentElement.parentElement;
+            productoId = producto.querySelector('a').getAttribute('data-id');
+        }
+
     }
 }
 
@@ -88,6 +101,7 @@ const listaCarro = document.getElementById("lista-carro");
 
 function eventoAgregar(){
     catalogo.addEventListener("click", (e) =>{carro.comprarProducto(e)});
+    listaCarro.addEventListener("click", (e) =>{carro.borrarProducto(e)});
 }
 
 eventoAgregar();
