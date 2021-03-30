@@ -33,10 +33,10 @@ function nuevoUsuario() {
 
     for (i = 0; i < cuentas.length; i++) {
         if (regEmail == cuentas[i].email) {
-            document.getElementById("emailError").innerHTML = "Este email ya ha sido registrado"
+            $("#emailError").append("Este email ya ha sido registrado").css("color", "red");
             return
         } else if (regContrasena.length < 8) {
-            document.getElementById("validacion").innerHTML = "Ingrese un mínimo de 8 caracteres"
+            $("#validacion").append("Ingrese un mínimo de 8 caracteres").css("color", "red");
             return
         }
     }
@@ -54,8 +54,7 @@ class Carrito{
         e.preventDefault();
         if(e.target.classList.contains("add")){
             const producto = e.target.parentElement.parentElement;
-            this.infoProducto(producto);
-            
+            this.infoProducto(producto);          
         }
     }
     infoProducto(producto){
@@ -92,6 +91,7 @@ class Carrito{
         }
 
     }
+
 }
 
 const carro = new Carrito();
@@ -101,7 +101,7 @@ const listaCarro = document.getElementById("lista-carro");
 
 function eventoAgregar(){
     catalogo.addEventListener("click", (e) =>{carro.comprarProducto(e)});
-    listaCarro.addEventListener("click", (e) =>{carro.borrarProducto(e)});
+    ubicacionCarro.addEventListener("click", (e) =>{carro.borrarProducto(e)});
 }
 
 eventoAgregar();
