@@ -3,7 +3,8 @@ html{
 }
 
 .portada{
-    background-image: url(image/portada.jpg);
+    background: url(image/portada.jpg) no-repeat top fixed;
+    background-size: cover;
     height: 100vh;
 }
 .texto-portada{
@@ -19,4 +20,25 @@ html{
 .p-portada{
     font-size: 1.5rem;
 }
+.card{
+    box-shadow: 1px 1px 8px gray;
+    margin: 30px;
+}
+.imagenCard{
+    width: 280px;
+    height: 280px;
+    object-fit: scale-down;
+}
+.columna{
+    display: flex;
+    justify-content: center;
+}
 
+@media screen and (max-width: 763px){
+    .card{
+       margin: 20px 0px; 
+    }
+    .titulo-portada{
+        font-size: 2rem;
+    }
+}
