@@ -75,8 +75,8 @@ class Carrito{
         <img src="${producto.imagen}" width=100>
         </td>
         <td class="px-5">${producto.titulo}</td>
-        <td class="px-5">${producto.precio}</td>
-        <td><a href="#" class="borrar-prod" data-id="${producto.id}">Eliminar</a></td>`
+        <td class="px-3">${producto.precio}</td>
+        <td><a href="#" class="borrar-prod px-3" data-id="${producto.id}">Eliminar</a></td>`
         ;
         listaCarro.appendChild(linea);
     }

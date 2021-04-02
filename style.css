@@ -1,6 +1,14 @@
 html{
     box-sizing: border-box;
 }
+.menu{
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    background: rgb(49, 49, 49);
+    z-index: 30;
+}
 
 .portada{
     background: url(image/portada.jpg) no-repeat top fixed;
@@ -23,6 +31,12 @@ html{
 .card{
     box-shadow: 1px 1px 8px gray;
     margin: 30px;
+}
+.card-title{
+    font-size: 14px;
+}
+.card-text{
+    font-size: 24px;
 }
 .imagenCard{
     width: 280px;
