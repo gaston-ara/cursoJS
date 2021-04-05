@@ -46,6 +46,7 @@ function nuevoUsuario() {
             return
         }
     }
+    
     cuentas.push(nuevaCuenta)
     // Animaciones
     $(".notificaciones").hide();
@@ -57,8 +58,12 @@ function nuevoUsuario() {
 
 // Carrito de compras
 let carrito = [];
+
+ if (carrito.length === 0) { 
+                $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+}
+
 $.getJSON("../data/articulos.json", function (datos, estado) {
-        console.log(estado)
         
         for (let index = 0; index < datos.length; index++) {
             $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
@@ -67,25 +72,46 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
                                             <div class="card-body">
                                                 <h5 class="card-title">${datos[index].titulo}</h5>
                                                 <p class="card-text">$${datos[index].precio}</p>
-                                                <a href="#" class="btn btn-primary add" id="${datos[index].id}">Añadir al carrito</a>
+                                                <a href="#" class="btn btn-primary add" id="${datos[index].id}">Agregar al carrito</a>
                                             </div>
                                         </div>
                                     </div>`);
-            
         }
+        // Buscador
+        $("#btnBuscar").click(function (e) { 
+            e.preventDefault();
+            console.log($("#searcher").val().toLowerCase());
+            console.log(datos[1].titulo)
+            for (let index = 0; index < datos.length; index++) {
+                if ($("#searcher").val().toLowerCase() == datos[index].titulo.toLowerCase()) {
+                    $("#articulos").empty();
+                    $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
+                                        <div class="card" id="${datos[index].id}" style="width: 18rem;">
+                                            <img src="${datos[index].imagen}" class="card-img-top img-fluid imagenCard" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${datos[index].titulo}</h5>
+                                                <p class="card-text">$${datos[index].precio}</p>
+                                                <a href="#" class="btn btn-primary add" id="${datos[index].id}">Agregar al carrito</a>
+                                            </div>
+                                        </div>
+                                    </div>`);   
+                }
+            }
+        });
+       
+        // Agregar al carrito
         $(".add").click(function (e) {
-             e.preventDefault();
+            e.preventDefault();
             let objEncontrado = datos.find(function(elemento){return elemento.id == e.target.id});
             carrito.push(objEncontrado);
-            console.log(carrito);
             $("#lista-carro").empty();
             let precioTotal = 0;
             for (const producto of carrito) {
                 precioTotal = precioTotal + producto.precio;
                 $("#lista-carro").append(`<tr><td class="px-4">
-                                        <img src="${producto.imagen}" >
+                                        <img class="img-fluid" src="${producto.imagen}" >
                                         </td>
-                                        <td class="px-5">${producto.titulo}</td>
+                                        <td class="px-4">${producto.titulo}</td>
                                         <td class="px-3">$${producto.precio}</td>
                                         <td><a href="#" class="borrar-prod px-3" data-id="${producto.id}">Eliminar</a></td></tr>`);
             }
@@ -95,64 +121,18 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
             $(".notificaciones").html(`<p class="activar bg-success text-white">Producto agregado al carrito</p>`);
             $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
         });
+
+        // Vaciar carrito
+        $("#vaciar").click(function (e) {
+            $("#lista-carro").empty(); 
+            carrito.length = [0];
+            if (carrito.length === 0) {
+                $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);    
+            }
+            $(".notificaciones").hide();
+            $(".notificaciones").html(`<p class="activar bg-success text-white">Carrito vacío</p>`);
+            $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
+            $('#carritoModal').modal('hide');
+        });
     }
 );
-
-
-// class Carrito{
-
-//     comprarProducto(e){
-//         e.preventDefault();
-//         if(e.target.classList.contains("add")){
-//             const producto = e.target.parentElement.parentElement;
-//             this.infoProducto(producto);          
-//         }
-//     }
-//     infoProducto(producto){
-//         const info = {
-//             imagen: producto.querySelector("img").src,
-//             titulo: producto.querySelector("h5").textContent,
-//             precio: producto.querySelector("p").textContent,
-//             id: producto.querySelector("a").getAttribute("data-id"),
-//             cantidad: 1,
-//         }
-//         this.crearEnCarrito(info);
-//     }
-
-//     crearEnCarrito(producto){
-//         const linea= document.createElement("tr");
-//         linea.innerHTML = `
-//         <td class="px-4">
-//         <img src="${producto.imagen}" width=100>
-//         </td>
-//         <td class="px-5">${producto.titulo}</td>
-//         <td class="px-3">${producto.precio}</td>
-//         <td><a href="#" class="borrar-prod px-3" data-id="${producto.id}">Eliminar</a></td>`
-//         ;
-//         listaCarro.appendChild(linea);
-//     }
-
-//     borrarProducto(e){
-//         e.preventDefault();
-//         let producto, productoId;
-//         if(e.target.classlist.contains('borrar-prod')){
-//             e.target.parentElement.parentElement.remove();
-//             producto = e.target.parentElement.parentElement;
-//             productoId = producto.querySelector('a').getAttribute('data-id');
-//         }
-
-//     }
-
-// }
-
-// const carro = new Carrito();
-// const ubicacionCarro = document.getElementById("carritoModal");
-// const catalogo = document.getElementById("articulos");
-// const listaCarro = document.getElementById("lista-carro");
-
-// function eventoAgregar(){
-//     catalogo.addEventListener("click", (e) =>{carro.comprarProducto(e)});
-//     ubicacionCarro.addEventListener("click", (e) =>{carro.borrarProducto(e)});
-// }
-
-// eventoAgregar();
