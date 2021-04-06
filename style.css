@@ -23,18 +23,12 @@ body{
     display: flex;
     justify-content: center;
     position: fixed;
-    margin: auto;
     bottom: 0px;
     right: 50px;
     z-index: 190;
 }
-.desaparecer{
-    display: none;
-    transition: 0.3s all ease-in;
-}
 .activar{
-    display: flex;
-    float: right;
+    display: block;
     text-align: center;
     font-size: 1rem;
     position: fixed;
@@ -87,5 +81,24 @@ body{
     }
     .titulo-portada{
         font-size: 2rem;
+    }
+    .notificaciones{
+        right: 0;
+        width: 100vw;
+    }
+    .activar{
+        display: block;
+        width: 100%;
+        padding: 0;
+        border-radius: 0%;
+    }
+    .modal-dialog{
+        width: 100vw;
+        margin: 0;
+    }
+}
+@media screen and (max-width: 300px){
+    .responsive-carro tr td:first-child{
+        display: none;
     }
 }

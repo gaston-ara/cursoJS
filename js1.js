@@ -1,8 +1,7 @@
 // Inicio sesion
 
 var cuentas = []
-$(".activar").hide();
-$(".activar").fadeIn("300");
+
 function getLogin() {
     var email = document.getElementById("mail").value
     var contrasena = document.getElementById("password").value
@@ -109,7 +108,7 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
             for (const producto of carrito) {
                 precioTotal = precioTotal + producto.precio;
                 $("#lista-carro").append(`<tr><td class="px-4">
-                                        <img class="img-fluid" src="${producto.imagen}" >
+                                        <img class="img-fluid" src="${producto.imagen}">
                                         </td>
                                         <td class="px-4">${producto.titulo}</td>
                                         <td class="px-3">$${producto.precio}</td>
