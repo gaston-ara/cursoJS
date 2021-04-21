@@ -112,13 +112,19 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
                                         </td>
                                         <td class="px-4">${producto.titulo}</td>
                                         <td class="px-3">$${producto.precio}</td>
-                                        <td><a href="#" class="borrar-prod px-3" data-id="${producto.id}">Eliminar</a></td></tr>`);
+                                        <td><a href="#" class="borrar-prod" id="${producto.id}">Eliminar</a></td></tr>`);
             }
             $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
             // Animaciones
             $(".notificaciones").hide();
             $(".notificaciones").html(`<p class="activar bg-success text-white">Producto agregado al carrito</p>`);
             $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
+        });
+
+        // Eliminar item del carrito
+        $(".borrar-prod").click(function (e) { 
+            e.preventDefault();
+            console.log(e.target.id);
         });
 
         // Vaciar carrito
@@ -133,5 +139,8 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
             $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
             $('#carritoModal').modal('hide');
         });
+
+        
+        
     }
 );
