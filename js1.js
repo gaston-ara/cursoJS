@@ -108,7 +108,7 @@ if (carrito.length === 0) {
 }
 
 $.getJSON("../data/articulos.json", function (datos, estado) {
-    $(document).ready(function () {
+
     for (let index = 0; index < datos.length; index++) {
         generarCatalogo(datos[index]);
     }
@@ -175,4 +175,4 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
     });
 }
 );
-});
+
