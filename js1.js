@@ -8,7 +8,7 @@ $(document).ready(function () {
         }
     });
 });
-
+// Formulario de compra
 $("#entregaForm").submit(function (e) { 
     e.preventDefault();
     console.log(e.target);
@@ -16,7 +16,7 @@ $("#entregaForm").submit(function (e) {
  });
 
 $("#provincia").change(function (e) {
-    // e.preventDefault();
+    e.preventDefault();
     console.log(this.value);
     let apiMuni = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${this.value}&campos=id,nombre&max=100`
     $.get(apiMuni, function (datos) {
