@@ -106,9 +106,9 @@ let carrito = [];
 if (carrito.length === 0) {
     $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
 }
-$(document).ready(function () {
-$.getJSON("../data/articulos.json", function (datos, estado) {
 
+$.getJSON("../data/articulos.json", function (datos, estado) {
+    $(document).ready(function () {
     for (let index = 0; index < datos.length; index++) {
         generarCatalogo(datos[index]);
     }
