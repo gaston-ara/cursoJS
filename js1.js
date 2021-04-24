@@ -1,5 +1,39 @@
-// Inicio sesion
+const apiProvincia = "https://apis.datos.gob.ar/georef/api/provincias"
+$(document).ready(function () {
+    $.get(apiProvincia, function (datos) {
+        console.log(datos.provincias);
+        $("#provincia").empty();
+        for (const provincia of datos.provincias) {
+            $("#provincia").append(`<option value="${provincia.id}">${provincia.nombre}</option>`);
+        }
+    });
+});
 
+$("#entregaForm").submit(function (e) { 
+    e.preventDefault();
+    console.log(e.target);
+    $("#modal-formulario").modal("hide");
+ });
+
+$("#provincia").change(function (e) {
+    // e.preventDefault();
+    console.log(this.value);
+    let apiMuni = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${this.value}&campos=id,nombre&max=100`
+    $.get(apiMuni, function (datos) {
+        console.log(datos.municipios);
+        $("#localidad").empty();
+        for (const municipio of datos.municipios) {
+            $("#localidad").append(`<option value="${municipio.id}">${municipio.nombre}</option>`);
+        }
+    });
+
+});
+
+// Funcion Eliminar del carrito
+function eliminarFilter(id) {
+    carrito = carrito.filter(producto => producto.id != id);
+}
+// Inicio sesion
 var cuentas = []
 
 function getLogin() {
@@ -12,7 +46,7 @@ function getLogin() {
             // Animaciones
             $(".notificaciones").hide();
             $(".notificaciones").html(`<p class="activar bg-success text-white">Sesión iniciada</p>`);
-            $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
+            $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
             console.log("Sesión iniciada")
             $('#sesionModal').modal('hide');
             return
@@ -45,12 +79,12 @@ function nuevoUsuario() {
             return
         }
     }
-    
+
     cuentas.push(nuevaCuenta)
     // Animaciones
     $(".notificaciones").hide();
     $(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
-    $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
+    $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
     console.log(cuentas)
     $('#registroModal').modal('hide');
 }
@@ -58,14 +92,14 @@ function nuevoUsuario() {
 // Carrito de compras
 let carrito = [];
 
- if (carrito.length === 0) { 
-                $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+if (carrito.length === 0) {
+    $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
 }
 
 $.getJSON("../data/articulos.json", function (datos, estado) {
-        
-        for (let index = 0; index < datos.length; index++) {
-            $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
+
+    for (let index = 0; index < datos.length; index++) {
+        $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
                                         <div class="card" id="${datos[index].id}" style="width: 18rem;">
                                             <img src="${datos[index].imagen}" class="card-img-top img-fluid imagenCard" alt="...">
                                             <div class="card-body">
@@ -75,16 +109,16 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
                                             </div>
                                         </div>
                                     </div>`);
-        }
-        // Buscador
-        $("#btnBuscar").click(function (e) { 
-            e.preventDefault();
-            console.log($("#searcher").val().toLowerCase());
-            console.log(datos[1].titulo)
-            for (let index = 0; index < datos.length; index++) {
-                if ($("#searcher").val().toLowerCase() == datos[index].titulo.toLowerCase()) {
-                    $("#articulos").empty();
-                    $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
+    }
+    // Buscador
+    $("#btnBuscar").click(function (e) {
+        e.preventDefault();
+        console.log($("#searcher").val().toLowerCase());
+        console.log(datos[1].titulo)
+        for (let index = 0; index < datos.length; index++) {
+            if ($("#searcher").val().toLowerCase() == datos[index].titulo.toLowerCase()) {
+                $("#articulos").empty();
+                $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
                                         <div class="card" id="${datos[index].id}" style="width: 18rem;">
                                             <img src="${datos[index].imagen}" class="card-img-top img-fluid imagenCard" alt="...">
                                             <div class="card-body">
@@ -93,54 +127,72 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
                                                 <a href="#" class="btn btn-primary add" id="${datos[index].id}">Agregar al carrito</a>
                                             </div>
                                         </div>
-                                    </div>`);   
-                }
+                                    </div>`);
             }
-        });
-       
-        // Agregar al carrito
-        $(".add").click(function (e) {
-            e.preventDefault();
-            let objEncontrado = datos.find(function(elemento){return elemento.id == e.target.id});
-            carrito.push(objEncontrado);
-            $("#lista-carro").empty();
-            let precioTotal = 0;
-            for (const producto of carrito) {
-                precioTotal = precioTotal + producto.precio;
-                $("#lista-carro").append(`<tr><td class="px-4">
+        }
+    });
+
+    // Agregar al carrito
+    $(".add").click(function (e) {
+        e.preventDefault();
+        let objEncontrado = datos.find(function (elemento) { return elemento.id == e.target.id });
+        carrito.push(objEncontrado);
+        $("#lista-carro").empty();
+        let precioTotal = 0;
+        for (const producto of carrito) {
+            precioTotal = precioTotal + producto.precio;
+            $("#lista-carro").append(`<tr><td class="px-4">
                                         <img class="img-fluid" src="${producto.imagen}">
                                         </td>
                                         <td class="px-4">${producto.titulo}</td>
                                         <td class="px-3">$${producto.precio}</td>
                                         <td><a href="#" class="borrar-prod" id="${producto.id}">Eliminar</a></td></tr>`);
-            }
-            $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
-            // Animaciones
-            $(".notificaciones").hide();
-            $(".notificaciones").html(`<p class="activar bg-success text-white">Producto agregado al carrito</p>`);
-            $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
-        });
+        }
+        $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
+        // Animaciones
+        $(".notificaciones").hide();
+        $(".notificaciones").html(`<p class="activar bg-success text-white">Producto agregado al carrito</p>`);
+        $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
 
         // Eliminar item del carrito
-        $(".borrar-prod").click(function (e) { 
+        $(".borrar-prod").click(function (e) {
             e.preventDefault();
             console.log(e.target.id);
-        });
-
-        // Vaciar carrito
-        $("#vaciar").click(function (e) {
-            $("#lista-carro").empty(); 
-            carrito.length = [0];
-            if (carrito.length === 0) {
-                $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);    
+            eliminarFilter(e.target.id);
+            $("#lista-carro").empty();
+            let precioTotal = 0;
+            for (const producto of carrito) {
+                precioTotal = precioTotal + producto.precio;
+                $("#lista-carro").append(`<tr><td class="px-4">
+                                         <img class="img-fluid" src="${producto.imagen}">
+                                         </td>
+                                         <td class="px-4">${producto.titulo}</td>
+                                         <td class="px-3">$${producto.precio}</td>
+                                         <td><a href="#" class="borrar-prod" id="${producto.id}">Eliminar</a></td></tr>`);
             }
-            $(".notificaciones").hide();
-            $(".notificaciones").html(`<p class="activar bg-success text-white">Carrito vacío</p>`);
-            $(".notificaciones").slideDown(300).delay(2000).animate({width:'toggle'},100);
-            $('#carritoModal').modal('hide');
+            $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
+            if (carrito.length === 0) {
+                $("#lista-carro").empty();
+                $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+            }
         });
+    });
 
-        
-        
-    }
+    // Vaciar carrito
+    $("#vaciar").click(function (e) {
+        $("#lista-carro").empty();
+        carrito.length = [0];
+        if (carrito.length === 0) {
+            $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+        }
+        $(".notificaciones").hide();
+        $(".notificaciones").html(`<p class="activar bg-success text-white">Carrito vacío</p>`);
+        $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
+        $('#carritoModal').modal('hide');
+    });
+
+
+
+}
 );
+

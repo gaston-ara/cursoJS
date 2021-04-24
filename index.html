@@ -1,6 +1,5 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -151,58 +150,54 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form action="#" method="POST" id="entregaForm" novalidate>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="nombres">Nombre</label>
-                                    <input type="text" class="form-control" id="nombres" required>
+                                    <input type="text" class="form-control" id="nombres" name="nombres" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="apellidos">Apellido</label>
-                                    <input type="text" class="form-control" id="apellidos" required>
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="localidad">Localidad</label>
-                                    <select id="localidad" class="form-control" required>
-                                        <option selected>Choose...</option>
-                                        <option>...</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-4">
                                     <label for="provincia">Provincia</label>
                                     <select id="provincia" class="form-control" required>
-                                        <option selected>Choose...</option>
+                                        <option selected>Elegir...</option>
                                         <option>...</option>
                                     </select>
                                 </div>
-
+                                <div class="form-group col-md-6">
+                                    <label for="localidad">Localidad</label>
+                                    <select id="localidad" class="form-control" required>
+                                        <option selected>Elegir...</option>
+                                        <option>...</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="direccion">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" placeholder="Calle 1234"
+                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 1234"
                                     required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="pisos">Piso</label>
-                                    <input type="number" class="form-control" id="pisos">
+                                    <input type="number" class="form-control" name="pisos" id="pisos">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="depto">Departamento</label>
-                                    <input type="text" class="form-control" id="depto">
+                                    <input type="text" class="form-control" name="depto" id="depto">
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="postal">Código Postal</label>
-                                    <input type="text" class="form-control" id="postal" required>
+                                    <input type="text" class="form-control" name="postal" id="postal" required>
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-primary mt-3" name="entregaForm">Finalizar Compra</button>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary">Finalizar Compra</button>
                     </div>
                 </div>
             </div>
