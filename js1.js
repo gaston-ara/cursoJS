@@ -1,3 +1,17 @@
+// Funciones
+function generarCatalogo(producto){
+    $("#articulos").append(componentesCatalogo(producto));
+}
+function agregarAlCarrito(e, datos) {
+    let objEncontrado = datos.find(function (elemento) { return elemento.id == e.target.id });
+        carrito.push(objEncontrado);
+}
+function generarListaCarrito(producto) {
+    $("#lista-carro").append(componentesCarrito(producto));
+}
+function eliminarFilter(id) {
+    carrito = carrito.filter(producto => producto.id != id);
+}
 // Api Georef - Formulario de compra
 const apiProvincia = "https://apis.datos.gob.ar/georef/api/provincias"
 $(document).ready(function () {
@@ -21,7 +35,6 @@ $("#provincia").change(function (e) {
             $("#localidad").append(`<option value="${municipio.id}">${municipio.nombre}</option>`);
         }
     });
-
 });
 
 // Formulario de compra
@@ -31,10 +44,6 @@ $("#entregaForm").submit(function (e) {
     $("#modal-formulario").modal("hide");
  });
 
-// Funcion Eliminar del carrito
-function eliminarFilter(id) {
-    carrito = carrito.filter(producto => producto.id != id);
-}
 // Inicio sesion
 var cuentas = []
 
@@ -97,21 +106,13 @@ let carrito = [];
 if (carrito.length === 0) {
     $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
 }
-
+$(document).ready(function () {
 $.getJSON("../data/articulos.json", function (datos, estado) {
 
     for (let index = 0; index < datos.length; index++) {
-        $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
-                                        <div class="card" id="${datos[index].id}" style="width: 18rem;">
-                                            <img src="${datos[index].imagen}" class="card-img-top img-fluid imagenCard" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${datos[index].titulo}</h5>
-                                                <p class="card-text">$${datos[index].precio}</p>
-                                                <a href="#" class="btn btn-primary add" id="${datos[index].id}">Agregar al carrito</a>
-                                            </div>
-                                        </div>
-                                    </div>`);
+        generarCatalogo(datos[index]);
     }
+
     // Buscador
     $("#btnBuscar").click(function (e) {
         e.preventDefault();
@@ -120,16 +121,7 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
         for (let index = 0; index < datos.length; index++) {
             if ($("#searcher").val().toLowerCase() == datos[index].titulo.toLowerCase()) {
                 $("#articulos").empty();
-                $("#articulos").append(`<div class="col-sm-12 col-md-6 col-lg-4 columna">
-                                        <div class="card" id="${datos[index].id}" style="width: 18rem;">
-                                            <img src="${datos[index].imagen}" class="card-img-top img-fluid imagenCard" alt="...">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${datos[index].titulo}</h5>
-                                                <p class="card-text">$${datos[index].precio}</p>
-                                                <a href="#" class="btn btn-primary add" id="${datos[index].id}">Agregar al carrito</a>
-                                            </div>
-                                        </div>
-                                    </div>`);
+                generarCatalogo(datos[index]);
             }
         }
     });
@@ -137,18 +129,12 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
     // Agregar al carrito
     $(".add").click(function (e) {
         e.preventDefault();
-        let objEncontrado = datos.find(function (elemento) { return elemento.id == e.target.id });
-        carrito.push(objEncontrado);
+        agregarAlCarrito(e, datos);
         $("#lista-carro").empty();
         let precioTotal = 0;
         for (const producto of carrito) {
             precioTotal = precioTotal + producto.precio;
-            $("#lista-carro").append(`<tr><td class="px-4">
-                                        <img class="img-fluid" src="${producto.imagen}">
-                                        </td>
-                                        <td class="px-4">${producto.titulo}</td>
-                                        <td class="px-3">$${producto.precio}</td>
-                                        <td><a href="#" class="borrar-prod" id="${producto.id}">Eliminar</a></td></tr>`);
+            generarListaCarrito(producto);
         }
         $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
         // Animaciones
@@ -165,12 +151,7 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
             let precioTotal = 0;
             for (const producto of carrito) {
                 precioTotal = precioTotal + producto.precio;
-                $("#lista-carro").append(`<tr><td class="px-4">
-                                         <img class="img-fluid" src="${producto.imagen}">
-                                         </td>
-                                         <td class="px-4">${producto.titulo}</td>
-                                         <td class="px-3">$${producto.precio}</td>
-                                         <td><a href="#" class="borrar-prod" id="${producto.id}">Eliminar</a></td></tr>`);
+                generarListaCarrito(producto);
             }
             $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
             if (carrito.length === 0) {
@@ -192,9 +173,6 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
         $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
         $('#carritoModal').modal('hide');
     });
-
-
-
 }
 );
-
+});

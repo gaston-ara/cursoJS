@@ -150,7 +150,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="#" method="POST" id="entregaForm" novalidate>
+                        <form action="#" method="POST" id="entregaForm">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="nombres">Nombre</label>
@@ -164,14 +164,14 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="provincia">Provincia</label>
-                                    <select id="provincia" class="form-control" required>
+                                    <select id="provincia" class="form-control" name="provincia" required>
                                         <option selected>Elegir...</option>
                                         <option>...</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="localidad">Localidad</label>
-                                    <select id="localidad" class="form-control" required>
+                                    <select id="localidad" class="form-control" name="localidad" required>
                                         <option selected>Elegir...</option>
                                         <option>...</option>
                                     </select>
@@ -196,7 +196,7 @@
                                     <input type="text" class="form-control" name="postal" id="postal" required>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-3" >Finalizar Compra</button>
+                            <button type="button" class="btn btn-primary mt-3">Finalizar Compra</button>
                         </form>
                     </div>
                 </div>
@@ -288,13 +288,13 @@
             <div class="w-50 mt-4 m-auto">
                 <form class="form-group" action="" id="form1">
                     <label class="text-white" for="name">Nombre</label>
-                    <input class="form-control" type="text" name="name" id="name"><br>
+                    <input class="form-control" type="text" name="name" id="name" required><br>
                     <label class="text-white" for="surname">Apellido</label>
-                    <input class="form-control" type="text" name="surname" id="surname"><br>
+                    <input class="form-control" type="text" name="surname" id="surname" required><br>
                     <label class="text-white" for="correo">Email</label>
-                    <input class="form-control" type="email" name="correo" id="correo"><br>
+                    <input class="form-control" type="email" name="correo" id="correo" required><br>
                     <label class="text-white" for="message">Escriba su mensaje</label>
-                    <textarea class="form-control" name="message" id="" cols="30" rows="5"></textarea>
+                    <textarea class="form-control" name="message" id="" cols="30" rows="5" required></textarea>
                     <button type="submit" class="btn btn-light mt-3">Enviar</button>
                 </form>
             </div>
@@ -311,6 +311,7 @@
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
     <script src="js1.js"></script>
+    <script src="components.js"></script>
 
 </body>
 
