@@ -1,3 +1,4 @@
+// Api Georef - Formulario de compra
 const apiProvincia = "https://apis.datos.gob.ar/georef/api/provincias"
 $(document).ready(function () {
     $.get(apiProvincia, function (datos) {
@@ -8,12 +9,6 @@ $(document).ready(function () {
         }
     });
 });
-// Formulario de compra
-$("#entregaForm").submit(function (e) { 
-    e.preventDefault();
-    console.log(e.target);
-    $("#modal-formulario").modal("hide");
- });
 
 $("#provincia").change(function (e) {
     e.preventDefault();
@@ -28,6 +23,13 @@ $("#provincia").change(function (e) {
     });
 
 });
+
+// Formulario de compra
+$("#entregaForm").submit(function (e) { 
+    e.preventDefault();
+    console.log(e.target);
+    $("#modal-formulario").modal("hide");
+ });
 
 // Funcion Eliminar del carrito
 function eliminarFilter(id) {
