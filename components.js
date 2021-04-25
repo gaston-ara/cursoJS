@@ -12,7 +12,7 @@ function componentesCatalogo(producto) {
             </div>`
 }
 
-// Plantilla- lista del carrito
+// Plantilla - Lista del carrito
 function componentesCarrito(producto) {
     return `<tr><td class="px-4">
             <img class="img-fluid" src="${producto.imagen}">

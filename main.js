@@ -1,22 +1,8 @@
-// Funciones
-function generarCatalogo(producto){
-    $("#articulos").append(componentesCatalogo(producto));
-}
-function agregarAlCarrito(e, datos) {
-    let objEncontrado = datos.find(function (elemento) { return elemento.id == e.target.id });
-        carrito.push(objEncontrado);
-}
-function generarListaCarrito(producto) {
-    $("#lista-carro").append(componentesCarrito(producto));
-}
-function eliminarFilter(id) {
-    carrito = carrito.filter(producto => producto.id != id);
-}
+
 // Api Georef - Formulario de compra
 const apiProvincia = "https://apis.datos.gob.ar/georef/api/provincias"
 $(document).ready(function () {
     $.get(apiProvincia, function (datos) {
-        console.log(datos.provincias);
         $("#provincia").empty();
         for (const provincia of datos.provincias) {
             $("#provincia").append(`<option value="${provincia.id}">${provincia.nombre}</option>`);
@@ -26,10 +12,8 @@ $(document).ready(function () {
 
 $("#provincia").change(function (e) {
     e.preventDefault();
-    console.log(this.value);
     let apiMuni = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${this.value}&campos=id,nombre&max=100`
     $.get(apiMuni, function (datos) {
-        console.log(datos.municipios);
         $("#localidad").empty();
         for (const municipio of datos.municipios) {
             $("#localidad").append(`<option value="${municipio.id}">${municipio.nombre}</option>`);
@@ -38,12 +22,29 @@ $("#provincia").change(function (e) {
 });
 
 // Formulario de compra
-$("#entregaForm").submit(function (e) { 
-    e.preventDefault();
-    console.log(e.target);
-    $("#modal-formulario").modal("hide");
- });
 
+$("#entregaForm").click(function (e) {
+    if ($("#nombres").val() != "" && $("#apellidos").val() != "" && $("#provincia").val() != "" && $("#localidad").val() != "" && $("#direccion").val() != "" && $("#postal").val() != "") {
+        e.preventDefault();
+        swal({
+            title: "¡Gracias por tu compra!",
+            text: "Te estamos enviando tu paquete",
+            icon: "success",
+            button: "OK",
+        });
+        $("#modal-formulario").modal("hide");
+        $("#carritoModal").modal("hide");
+        $("#lista-carro").empty();
+        carrito.length = [0];
+        $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+    } else {
+        swal({
+            title: "Termina el formulario para continuar.",
+            icon: "warning",
+            button: "OK",
+        });
+    }
+});
 // Inicio sesion
 var cuentas = []
 
@@ -58,7 +59,6 @@ function getLogin() {
             $(".notificaciones").hide();
             $(".notificaciones").html(`<p class="activar bg-success text-white">Sesión iniciada</p>`);
             $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
-            console.log("Sesión iniciada")
             $('#sesionModal').modal('hide');
             return
         }
@@ -90,13 +90,11 @@ function nuevoUsuario() {
             return
         }
     }
-
     cuentas.push(nuevaCuenta)
     // Animaciones
     $(".notificaciones").hide();
     $(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
     $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
-    console.log(cuentas)
     $('#registroModal').modal('hide');
 }
 
@@ -107,24 +105,23 @@ if (carrito.length === 0) {
     $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
 }
 
+$("#comprar-carrito").click(function (e) {
+    e.preventDefault();
+    if (carrito.length === 0) {
+        swal({
+            title: "No hay productos en el carrito.",
+            icon: "warning",
+            button: "OK",
+        });
+    } else {
+        $('#modal-formulario').modal('show');
+    }
+});
 $.getJSON("../data/articulos.json", function (datos, estado) {
 
     for (let index = 0; index < datos.length; index++) {
         generarCatalogo(datos[index]);
     }
-
-    // Buscador
-    $("#btnBuscar").click(function (e) {
-        e.preventDefault();
-        console.log($("#searcher").val().toLowerCase());
-        console.log(datos[1].titulo)
-        for (let index = 0; index < datos.length; index++) {
-            if ($("#searcher").val().toLowerCase() == datos[index].titulo.toLowerCase()) {
-                $("#articulos").empty();
-                generarCatalogo(datos[index]);
-            }
-        }
-    });
 
     // Agregar al carrito
     $(".add").click(function (e) {
@@ -145,13 +142,13 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
         // Eliminar item del carrito
         $(".borrar-prod").click(function (e) {
             e.preventDefault();
-            console.log(e.target.id);
             eliminarFilter(e.target.id);
             $("#lista-carro").empty();
             let precioTotal = 0;
             for (const producto of carrito) {
                 precioTotal = precioTotal + producto.precio;
                 generarListaCarrito(producto);
+
             }
             $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
             if (carrito.length === 0) {
@@ -176,3 +173,17 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
 }
 );
 
+// Formulario de contacto
+
+$("#enviar-contacto").click(function (e) {
+    if ($("#name").val() != "" && $("#surname").val() != "" && $("#correo").val() != "" && $("#su-mensaje").val() != "") {
+        e.preventDefault();
+        swal({
+            title: "Mensaje enviado.",
+            text: "Gracias por contactarnos.",
+            icon: "success",
+            button: "OK",
+        });
+        $("#form1").trigger("reset");
+    }
+});

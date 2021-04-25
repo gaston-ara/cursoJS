@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,11 +31,6 @@
                         <a class="nav-link" href="#contacto" tabindex="-1" aria-disabled="true">Contacto</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0 m-auto">
-                    <input class="form-control mr-sm-2" type="search" id="searcher" placeholder="Search"
-                        aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" id="btnBuscar" type="submit">Buscar</button>
-                </form>
                 <a type="button" class="nav-link text-white" data-toggle="modal" data-target="#registroModal">
                     Registrate
                 </a>
@@ -63,8 +59,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="vaciar" class="btn btn-secondary">Vaciar carrito</button>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#modal-formulario">Comprar</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" id="comprar-carrito"
+                            >Comprar</button>
                     </div>
                 </div>
             </div>
@@ -150,7 +146,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="#" method="POST" id="entregaForm">
+                        <form id="entregaForm">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="nombres">Nombre</label>
@@ -179,8 +175,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="direccion">Dirección</label>
-                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 1234"
-                                    required>
+                                <input type="text" class="form-control" id="direccion" name="direccion"
+                                    placeholder="Calle 1234" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
@@ -196,8 +192,10 @@
                                     <input type="text" class="form-control" name="postal" id="postal" required>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-primary mt-3">Finalizar Compra</button>
                         </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary mt-3" id="entregaForm">Finalizar Compra</button>
                     </div>
                 </div>
             </div>
@@ -208,8 +206,8 @@
     <!-- Portada -->
     <div class="portada">
         <div class="texto-portada">
-            <h2 class="text-white titulo-portada">PROMO DESCUENTOS</h2>
-            <p class="text-white p-portada">Ingresá el código de tu cupón y obtené descuentos del 30%</p>
+            <h2 class="text-white titulo-portada">BlackDOG</h2>
+            <p class="text-white p-portada">Vestite con la mejor indumentaria deportiva</p>
         </div>
     </div>
     <main>
@@ -294,8 +292,8 @@
                     <label class="text-white" for="correo">Email</label>
                     <input class="form-control" type="email" name="correo" id="correo" required><br>
                     <label class="text-white" for="message">Escriba su mensaje</label>
-                    <textarea class="form-control" name="message" id="" cols="30" rows="5" required></textarea>
-                    <button type="submit" class="btn btn-light mt-3">Enviar</button>
+                    <textarea class="form-control" name="message" id="su-mensaje" cols="30" rows="5" required></textarea>
+                    <button type="submit" class="btn btn-light mt-3" id="enviar-contacto">Enviar</button>
                 </form>
             </div>
         </section>
@@ -310,9 +308,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
-    <script src="js1.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="main.js"></script>
     <script src="components.js"></script>
+    <script src="functions.js"></script>
 
 </body>
-
 </html>
