@@ -26,31 +26,49 @@ $("#provincia").change(function (e) {
 $("#entregaForm").click(function (e) {
     if ($("#nombres").val() != "" && $("#apellidos").val() != "" && $("#provincia").val() != "" && $("#localidad").val() != "" && $("#direccion").val() != "" && $("#postal").val() != "") {
         e.preventDefault();
+        $('#modal-tarjeta').modal('show');
+        $("#modal-formulario").modal("hide");
+        $("#carritoModal").modal("hide");
+    } else {
+        swal({
+            title: "El formulario está incompleto.",
+            icon: "warning",
+            button: "OK",
+        });
+    }
+});
+
+// Formulario de datos de tarjeta
+$("#form-datos-tarjeta").click(function (e) {
+    if ($("#tarjeta").val() != "" && $("#nombre-tarjeta").val() != "" && $("#mes").val() != "" && $("#año").val() != "" && $("#ccv").val() != "") {
+        e.preventDefault();
+        $("#modal-tarjeta").modal("hide");
         swal({
             title: "¡Gracias por tu compra!",
             text: "Te estamos enviando tu paquete",
             icon: "success",
             button: "OK",
         });
-        $("#modal-formulario").modal("hide");
-        $("#carritoModal").modal("hide");
+        $("#form-tarjeta").trigger("reset");
+        $("#formulario-compra").trigger("reset");
         $("#lista-carro").empty();
         carrito.length = [0];
         $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
     } else {
         swal({
-            title: "Termina el formulario para continuar.",
+            title: "El formulario está incompleto.",
             icon: "warning",
             button: "OK",
         });
     }
 });
+
 // Inicio sesion
-var cuentas = []
+let cuentas = []
 
 function getLogin() {
-    var email = document.getElementById("mail").value
-    var contrasena = document.getElementById("password").value
+    let email = document.getElementById("mail").value
+    let contrasena = document.getElementById("password").value
     $("#errorInicio").empty();
     for (i = 0; i < cuentas.length; i++) {
         if (email == cuentas[i].email && contrasena == cuentas[i].contrasena) {
@@ -68,20 +86,24 @@ function getLogin() {
 
 // Registro de usuario
 
-function nuevoUsuario() {
-    var regNombre = document.getElementById("nombre").value
-    var regApellido = document.getElementById("apellido").value
-    var regEmail = document.getElementById("email").value
-    var regContrasena = document.getElementById("contraseña").value
-    var nuevaCuenta = {
+
+    
+    $("#nuevo-usuario").click(function (e) {
+        e.preventDefault();
+    let regNombre = document.getElementById("nombre").value
+    let regApellido = document.getElementById("apellido").value
+    let regEmail = document.getElementById("email").value
+    let regContrasena = document.getElementById("contraseña").value
+    let nuevaCuenta = {
         nombre: regNombre,
         apellido: regApellido,
         email: regEmail,
         contrasena: regContrasena
     }
-    $("#emailError").empty();
-    $("#validacion").empty();
-    for (i = 0; i < cuentas.length; i++) {
+        if (regNombre != "" && regApellido != "" && regEmail != "" && regContrasena != "") {
+        $("#emailError").empty();
+        $("#validacion").empty();
+        for (i = 0; i < cuentas.length; i++) {
         if (regEmail == cuentas[i].email) {
             $("#emailError").append("Este email ya ha sido registrado").css("color", "red");
             return
@@ -92,11 +114,18 @@ function nuevoUsuario() {
     }
     cuentas.push(nuevaCuenta)
     // Animaciones
+    
     $(".notificaciones").hide();
     $(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
     $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100);
     $('#registroModal').modal('hide');
-}
+    
+            
+        } else {
+            $("#validacion").empty();
+            $("#validacion").append("El formulario está incompleto.").css("color", "red");
+        }
+});
 
 // Carrito de compras
 let carrito = [];
@@ -148,7 +177,6 @@ $.getJSON("../data/articulos.json", function (datos, estado) {
             for (const producto of carrito) {
                 precioTotal = precioTotal + producto.precio;
                 generarListaCarrito(producto);
-
             }
             $("#lista-carro").append(`<p class="text-center mt-4">Precio Total : $${precioTotal} </p>`);
             if (carrito.length === 0) {
