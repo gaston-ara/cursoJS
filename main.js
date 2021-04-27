@@ -1,6 +1,7 @@
 
-// Api Georef - Formulario de compra
+// Api Georef - Formulario de datos de envio
 const apiProvincia = "https://apis.datos.gob.ar/georef/api/provincias" //Creo una constante con la direccion de la api de provincias
+
 $(document).ready(function () {
     $.get(apiProvincia, function (datos) { //Si la pagina esta cargada obtengo los datos de la api
         $("#provincia").empty(); //Se vacia el select de provincias del formulario de entrega
@@ -21,45 +22,45 @@ $("#provincia").change(function (e) {
     });
 });
 
-// Formulario de compra
+// Registro de usuario
 
-$("#entregaForm").click(function (e) {
-    if ($("#nombres").val() != "" && $("#apellidos").val() != "" && $("#provincia").val() != "" && $("#localidad").val() != "" && $("#direccion").val() != "" && $("#postal").val() != "") {
-        e.preventDefault();
-        $('#modal-tarjeta').modal('show'); //Si los campos del formulario requeridos no estan vacios, tras un click en el boton del form se muestra el modal con el formulario de DATOS DE TARJETA
-        $("#modal-formulario").modal("hide"); //Tambien se esconde el modal del formulario de DATOS DE ENTREGA
-        $("#carritoModal").modal("hide"); //Y se esconde el modal del carrito de compras
-    } else {
-        swal({ //En el caso de que no esté el formulario completo saldrá un aviso pidiendo completarlo
-            title: "El formulario está incompleto.",
-            icon: "warning",
-            button: "OK",
-        });
-    }
-});
+$("#nuevo-usuario").click(function (e) {
+    e.preventDefault();
+    //Se crean las variables para tomar los datos del formulario de registro
+let regNombre = document.getElementById("nombre").value
+let regApellido = document.getElementById("apellido").value
+let regEmail = document.getElementById("email").value
+let regContrasena = document.getElementById("contraseña").value
+//Se crea una variable para almacenar la nueva cuenta creada
+let nuevaCuenta = {
+    nombre: regNombre,
+    apellido: regApellido,
+    email: regEmail,
+    contrasena: regContrasena
+}
+    if (regNombre != "" && regApellido != "" && regEmail != "" && regContrasena != "") {
+    $("#emailError").empty(); //Si el formulario esta completo se vacia el espacio de notificaciones de error en el formulario
+    $("#validacion").empty(); //Se vacía el espacio de notificaciones de validación del formulario
+    for (i = 0; i < cuentas.length; i++) {
+    if (regEmail == cuentas[i].email) {
+        $("#emailError").append("Este email ya ha sido registrado").css("color", "red"); // Si el email ingresado coincide con une email ya almacenado se da un aviso de email ya registrado.
+        return
+    } 
+}
+if (regContrasena.length < 8) {
+    $("#validacion").append("Ingrese un mínimo de 8 caracteres").css("color", "red"); //Si la contraseña ingresada tiene menos de 8 caracteres se da un aviso pidiendo que ingrese minimo 8 caracteres.
+    return
+}
+cuentas.push(nuevaCuenta) //Se envia la nueva cuenta creada a la variable de cuentas para que sea reconocida al iniciar sesion
+$(".notificaciones").hide();
+$(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
+$(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100); //Se muestra una notificacion animada avisando que se creó una nueva cuenta
+$('#registroModal').modal('hide'); //Se esconde el modal de REGISTRO DE CUENTA
 
-// Formulario de datos de tarjeta
-$("#form-datos-tarjeta").click(function (e) {
-    if ($("#tarjeta").val() != "" && $("#nombre-tarjeta").val() != "" && $("#mes").val() != "" && $("#año").val() != "" && $("#ccv").val() != "") {
-        e.preventDefault();
-        $("#modal-tarjeta").modal("hide"); //Si el formulario de DATOS DE TARJETA esta completo, tras hacer clic en el boton FINALIZAR COMPRA se oculta el modal con el formulario de DATOS DE TARJETA
-        swal({ // Y aparece un aviso confirmando la compra
-            title: "¡Gracias por tu compra!",
-            text: "Te estamos enviando tu paquete",
-            icon: "success",
-            button: "OK",
-        });
-        $("#form-tarjeta").trigger("reset"); //El formulario  de DATOS DE TARJETA se reinicia
-        $("#formulario-compra").trigger("reset"); //El formulario  de DATOS DE ENTREGA se reinicia
-        $("#lista-carro").empty(); // Se vacia el modal del carrito
-        carrito.length = [0]; // Se vacia la variable carrito
-        $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+        
     } else {
-        swal({ //En el caso de que no esté el formulario completo saldrá un aviso pidiendo completarlo
-            title: "El formulario está incompleto.",
-            icon: "warning",
-            button: "OK",
-        });
+        $("#validacion").empty();
+        $("#validacion").append("El formulario está incompleto.").css("color", "red"); //Si el formulario esta incompleto se da un aviso en el mismo formulario.
     }
 });
 
@@ -82,48 +83,6 @@ function getLogin() { //Esta funcion se inicia a partir de un evento Onclick en 
     }
     $("#errorInicio").append("Contraseña o email incorrecto").css("color", "red"); // Si el email o la contraseña no coinciden con las registradas, se da un aviso de "contraseña o email incorrecto"
 }
-
-// Registro de usuario
-
-    $("#nuevo-usuario").click(function (e) {
-        e.preventDefault();
-        //Se crean las variables para tomar los datos del formulario de registro
-    let regNombre = document.getElementById("nombre").value
-    let regApellido = document.getElementById("apellido").value
-    let regEmail = document.getElementById("email").value
-    let regContrasena = document.getElementById("contraseña").value
-    //Se crea una variable para almacenar la nueva cuenta creada
-    let nuevaCuenta = {
-        nombre: regNombre,
-        apellido: regApellido,
-        email: regEmail,
-        contrasena: regContrasena
-    }
-        if (regNombre != "" && regApellido != "" && regEmail != "" && regContrasena != "") {
-        $("#emailError").empty(); //Si el formulario esta completo se vacia el espacio de notificaciones de error en el formulario
-        $("#validacion").empty(); //Se vacía el espacio de notificaciones de validación del formulario
-        for (i = 0; i < cuentas.length; i++) {
-        if (regEmail == cuentas[i].email) {
-            $("#emailError").append("Este email ya ha sido registrado").css("color", "red"); // Si el email ingresado coincide con une email ya almacenado se da un aviso de email ya registrado.
-            return
-        } 
-    }
-    if (regContrasena.length < 8) {
-        $("#validacion").append("Ingrese un mínimo de 8 caracteres").css("color", "red"); //Si la contraseña ingresada tiene menos de 8 caracteres se da un aviso pidiendo que ingrese minimo 8 caracteres.
-        return
-    }
-    cuentas.push(nuevaCuenta) //Se envia la nueva cuenta creada a la variable de cuentas para que sea reconocida al iniciar sesion
-    $(".notificaciones").hide();
-    $(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
-    $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100); //Se muestra una notificacion animada avisando que se creó una nueva cuenta
-    $('#registroModal').modal('hide'); //Se esconde el modal de REGISTRO DE CUENTA
-    
-            
-        } else {
-            $("#validacion").empty();
-            $("#validacion").append("El formulario está incompleto.").css("color", "red"); //Si el formulario esta incompleto se da un aviso en el mismo formulario.
-        }
-});
 
 // Carrito de compras
 let carrito = []; //Se crea una variable para almacenar los productos en el carrito
@@ -197,6 +156,47 @@ $.getJSON("../data/articulos.json", function (datos, estado) { //Se obtienen los
     });
 }
 );
+
+// Formulario de datos de envio
+$("#entregaForm").click(function (e) {
+    if ($("#nombres").val() != "" && $("#apellidos").val() != "" && $("#provincia").val() != "" && $("#localidad").val() != "" && $("#direccion").val() != "" && $("#postal").val() != "") {
+        e.preventDefault();
+        $('#modal-tarjeta').modal('show'); //Si los campos del formulario requeridos no estan vacios, tras un click en el boton del form se muestra el modal con el formulario de DATOS DE TARJETA
+        $("#modal-formulario").modal("hide"); //Tambien se esconde el modal del formulario de DATOS DE ENTREGA
+        $("#carritoModal").modal("hide"); //Y se esconde el modal del carrito de compras
+    } else {
+        swal({ //En el caso de que no esté el formulario completo saldrá un aviso pidiendo completarlo
+            title: "El formulario está incompleto.",
+            icon: "warning",
+            button: "OK",
+        });
+    }
+});
+
+// Formulario de datos de tarjeta
+$("#form-datos-tarjeta").click(function (e) {
+    if ($("#tarjeta").val() != "" && $("#nombre-tarjeta").val() != "" && $("#mes").val() != "" && $("#año").val() != "" && $("#ccv").val() != "") {
+        e.preventDefault();
+        $("#modal-tarjeta").modal("hide"); //Si el formulario de DATOS DE TARJETA esta completo, tras hacer clic en el boton FINALIZAR COMPRA se oculta el modal con el formulario de DATOS DE TARJETA
+        swal({ // Y aparece un aviso confirmando la compra
+            title: "¡Gracias por tu compra!",
+            text: "Te estamos enviando tu paquete",
+            icon: "success",
+            button: "OK",
+        });
+        $("#form-tarjeta").trigger("reset"); //El formulario  de DATOS DE TARJETA se reinicia
+        $("#formulario-compra").trigger("reset"); //El formulario  de DATOS DE ENTREGA se reinicia
+        $("#lista-carro").empty(); // Se vacia el modal del carrito
+        carrito.length = [0]; // Se vacia la variable carrito
+        $("#lista-carro").append(`<p class="text-center fs-2">Tu carrito está vacío</p>`);
+    } else {
+        swal({ //En el caso de que no esté el formulario completo saldrá un aviso pidiendo completarlo
+            title: "El formulario está incompleto.",
+            icon: "warning",
+            button: "OK",
+        });
+    }
+});
 
 // Formulario de contacto
 $("#enviar-contacto").click(function (e) {
