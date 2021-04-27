@@ -14,7 +14,7 @@ $(document).ready(function () {
 $("#provincia").change(function (e) {
     e.preventDefault();
     let apiMuni = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${this.value}&campos=id,nombre&max=100`
-    $.get(apiMuni, function (datos) { 
+    $.get(apiMuni, function (datos) {
         $("#localidad").empty(); // En cuanto se detecta una seleccion en el select de provincias el select de localidades se vacía
         for (const municipio of datos.municipios) {
             $("#localidad").append(`<option value="${municipio.id}">${municipio.nombre}</option>`); // En el select de localidades del formulario de entrega se imprime un option por cada municipio
@@ -27,37 +27,37 @@ $("#provincia").change(function (e) {
 $("#nuevo-usuario").click(function (e) {
     e.preventDefault();
     //Se crean las variables para tomar los datos del formulario de registro
-let regNombre = document.getElementById("nombre").value
-let regApellido = document.getElementById("apellido").value
-let regEmail = document.getElementById("email").value
-let regContrasena = document.getElementById("contraseña").value
-//Se crea una variable para almacenar la nueva cuenta creada
-let nuevaCuenta = {
-    nombre: regNombre,
-    apellido: regApellido,
-    email: regEmail,
-    contrasena: regContrasena
-}
+    let regNombre = document.getElementById("nombre").value
+    let regApellido = document.getElementById("apellido").value
+    let regEmail = document.getElementById("email").value
+    let regContrasena = document.getElementById("contraseña").value
+    //Se crea una variable para almacenar la nueva cuenta creada
+    let nuevaCuenta = {
+        nombre: regNombre,
+        apellido: regApellido,
+        email: regEmail,
+        contrasena: regContrasena
+    }
     if (regNombre != "" && regApellido != "" && regEmail != "" && regContrasena != "") {
-    $("#emailError").empty(); //Si el formulario esta completo se vacia el espacio de notificaciones de error en el formulario
-    $("#validacion").empty(); //Se vacía el espacio de notificaciones de validación del formulario
-    for (i = 0; i < cuentas.length; i++) {
-    if (regEmail == cuentas[i].email) {
-        $("#emailError").append("Este email ya ha sido registrado").css("color", "red"); // Si el email ingresado coincide con une email ya almacenado se da un aviso de email ya registrado.
-        return
-    } 
-}
-if (regContrasena.length < 8) {
-    $("#validacion").append("Ingrese un mínimo de 8 caracteres").css("color", "red"); //Si la contraseña ingresada tiene menos de 8 caracteres se da un aviso pidiendo que ingrese minimo 8 caracteres.
-    return
-}
-cuentas.push(nuevaCuenta) //Se envia la nueva cuenta creada a la variable de cuentas para que sea reconocida al iniciar sesion
-$(".notificaciones").hide();
-$(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
-$(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100); //Se muestra una notificacion animada avisando que se creó una nueva cuenta
-$('#registroModal').modal('hide'); //Se esconde el modal de REGISTRO DE CUENTA
+        $("#emailError").empty(); //Si el formulario esta completo se vacia el espacio de notificaciones de error en el formulario
+        $("#validacion").empty(); //Se vacía el espacio de notificaciones de validación del formulario
+        for (i = 0; i < cuentas.length; i++) {
+            if (regEmail == cuentas[i].email) {
+                $("#emailError").append("Este email ya ha sido registrado").css("color", "red"); // Si el email ingresado coincide con une email ya almacenado se da un aviso de email ya registrado.
+                return
+            }
+        }
+        if (regContrasena.length < 8) {
+            $("#validacion").append("Ingrese un mínimo de 8 caracteres").css("color", "red"); //Si la contraseña ingresada tiene menos de 8 caracteres se da un aviso pidiendo que ingrese minimo 8 caracteres.
+            return
+        }
+        cuentas.push(nuevaCuenta) //Se envia la nueva cuenta creada a la variable de cuentas para que sea reconocida al iniciar sesion
+        $(".notificaciones").hide();
+        $(".notificaciones").html(`<p class="activar bg-success text-white">Nueva cuenta creada</p>`);
+        $(".notificaciones").slideDown(300).delay(2000).animate({ width: 'toggle' }, 100); //Se muestra una notificacion animada avisando que se creó una nueva cuenta
+        $('#registroModal').modal('hide'); //Se esconde el modal de REGISTRO DE CUENTA
 
-        
+
     } else {
         $("#validacion").empty();
         $("#validacion").append("El formulario está incompleto.").css("color", "red"); //Si el formulario esta incompleto se da un aviso en el mismo formulario.
@@ -72,7 +72,7 @@ function getLogin() { //Esta funcion se inicia a partir de un evento Onclick en 
     let contrasena = document.getElementById("password").value
     $("#errorInicio").empty(); //Tras hacer clic en el boton INGRESAR se borra el espacio de notificaciones de error del modal
     for (i = 0; i < cuentas.length; i++) {
-        if (email == cuentas[i].email && contrasena == cuentas[i].contrasena) { 
+        if (email == cuentas[i].email && contrasena == cuentas[i].contrasena) {
             document.getElementById("inicioSesion").innerHTML = cuentas[i].nombre + " " + cuentas[i].apellido//Tras recorrer la variable "cuentas" si el email y la contraseña coinciden con las registradas en la seccion de registro de usuario, se imprimen el nombre y el apellido del usuario en el menú.
             $(".notificaciones").hide(); // Se ocultan las notificaciones actuales
             $(".notificaciones").html(`<p class="activar bg-success text-white">Sesión iniciada</p>`); // Se imprime una nueva notificacion dando aviso del inicio de sesion.
