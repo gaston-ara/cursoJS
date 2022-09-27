@@ -1,7 +1,7 @@
 // Plantilla del catálogo de productos
 function componentesCatalogo(producto) { //Plantilla html de un card de productos del catalogo de la pagina
     return `<div class="col-sm-12 col-md-6 col-lg-4 columna">
-                <div class="card" id="${producto.id}" style="width: 18rem;">
+                <div class="card" id="${producto.id}">
                     <img src="${producto.imagen}" class="card-img-top img-fluid imagenCard" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">${producto.titulo}</h5>
