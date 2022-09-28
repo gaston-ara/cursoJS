@@ -297,6 +297,3 @@ btnLogin.addEventListener('click', (e) => {
     })
     errorInicio.innerHTML = "Contraseña o email incorrecto"
 })
-
-
-
