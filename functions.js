@@ -1,14 +1,66 @@
 // Funciones
-function generarCatalogo(producto) { // Esta funcion toma una plantilla de un card html del archivo "components" y la imprime con los datos de un producto en la seccion de catalogo de productos de la pagina
-    $("#articulos").append(componentesCatalogo(producto));
+const getProducts = async () => { //Se obtienen los productos del json para pasarlo a un array al iniciar la pagina
+    try {
+        let res = await fetch(jsonProducts);
+        let data = await res.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
 }
-function agregarAlCarrito(e, datos) { //Esta funcion busca un producto en el JSON de productos que coincida su id con el id del producto impreso en el catalogo y lo envia a la variable carrito.
-    let objEncontrado = datos.find(function (elemento) { return elemento.id == e.target.id });
-    carrito.push(objEncontrado);
+const renderProducts = async (productos) => { //Se renderizan los productos 
+    try {
+        productos.map(producto => {
+            return catalogue.innerHTML += componentesCatalogo(producto);
+        })
+    } catch (error) {
+        console.error(error)
+    }
 }
-function generarListaCarrito(producto) { //Esta funcion toma un plantilla de una fila con los datos de un producto del archivo "components" y la imprime en la lista del modal del carrito con los datos de los productos seleccionados.
-    $("#lista-carro").append(componentesCarrito(producto));
+const addToCart = (idOnclick) => { //Se agregan los productos seleccionados al carrito
+    try {
+        let selectedProduct = productos.find((item) => item.id == idOnclick);
+        cart.push(selectedProduct);
+        return console.log(cart);
+    } catch (error) {
+        console.error(error);
+    }
+
 }
-function eliminarFilter(id) { //Esta funcion modifica la variable carrito filtrando y dejando solo los productos que tienen el id diferente al seleccionado para eliminar del carrito.
-    carrito = carrito.filter(producto => producto.id != id);
+const renderCart = (producto) => { //Se renderizan componentes de lista del carrito con los productos agregados
+    try {
+        cartList.innerHTML += componentesCarrito(producto);
+    } catch (error) {
+        console.error();
+    }
+
+}
+const cartDelete = (id) => { //Se elimina un producto filtrandolo del resto
+    try {
+        cart = cart.filter(producto => producto.id != id)
+    } catch (error) {
+        console.error(error);
+    }
+}
+const getGeoRef = async () => { //Se obtienen las provincias de la api de GeoRef
+    try {
+      let res = await fetch(apiProvincia);
+    let data = await res.json();
+    return data;  
+    } catch (error) {
+        console.error(error);
+    }
+    
+}
+const getCities = async () => { //Se obtienen las ciudades de la api de GeoRef
+    let apiMuni = `https://apis.datos.gob.ar/georef/api/municipios?provincia=${provinceInput.value}&campos=id,nombre&max=100`;
+
+    try {
+        let res = await fetch(apiMuni);
+        let data = await res.json();
+        return data;
+    }
+    catch (error) {
+        console.error(error);
+    }
 }

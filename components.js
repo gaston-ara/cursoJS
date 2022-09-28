@@ -15,7 +15,7 @@ function componentesCatalogo(producto) { //Plantilla html de un card de producto
 // Plantilla - Lista del carrito
 function componentesCarrito(producto) { //Plantilla html de una fila de la tabla del modal del carrito.
     return `<tr><td class="px-4">
-            <img class="img-fluid" src="${producto.imagen}">
+            <img class="img-fluid p-5" src="${producto.imagen}">
             </td>
             <td class="px-4">${producto.titulo}</td>
             <td class="px-3">$${producto.precio}</td>
