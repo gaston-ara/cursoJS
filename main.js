@@ -71,9 +71,6 @@ window.onload = () => {
 
 // EventListeners
 
-//Registro de usuario
-
-
 // Agregar al carrito
 catalogue.addEventListener('click', (e) => {
     e.preventDefault();
@@ -233,6 +230,7 @@ btnContact.addEventListener('click', (e) => {
     }
 })
 
+//Registro de usuario
 btnNewUser.addEventListener('click', (e) => {
     e.preventDefault();
     let regNombre = document.getElementById("nombre").value
